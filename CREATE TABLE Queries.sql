@@ -84,7 +84,6 @@ CREATE TABLE Consumer (
 	ID CHAR(8) PRIMARY KEY,
 	Name VARCHAR(15) NOT NULL,
 	Type VARCHAR(15),
-	LastOrderID CHAR(10),
 	CompanyID CHAR(5),
 	PhoneNb SMALLINT,
 	Country VARCHAR(15),
