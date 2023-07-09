@@ -146,8 +146,8 @@ CREATE TABLE Relative (
 CREATE TABLE Schedule (
 	EmployeeID CHAR(8),
 	ScheduleDate DATE,
-	StartTime CHAR(11) NOT NULL,
-	EndTime CHAR(11) NOT NULL,
+	StartTime CHAR(8) NOT NULL,
+	EndTime CHAR(8) NOT NULL,
 	PRIMARY KEY (EmployeeID, ScheduleDate),
 	FOREIGN KEY (EmployeeID) REFERENCES Employee(ID)
 );
