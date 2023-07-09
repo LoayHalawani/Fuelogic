@@ -7,11 +7,13 @@ AND C.ID IN (SELECT C.ID
 
 
 
+
 SELECT FirstName, MiddleName, LastName
 FROM Employee
 WHERE Amount IN (SELECT E.Amount 
 				 FROM Employee E, Company C
 				 WHERE E.Amount > 700 AND E.CompanyID = C.ID AND C.ID LIKE '%01%');
+
 
 
 
@@ -24,11 +26,13 @@ AND C.ID IN (SELECT C.ID
 
 
 
+
 SELECT C.FirstName, C.LastName, 1.15 * B.Amount AS Fine, B.Currency
 FROM Consumer C, Bill B, DeliversTo D
 WHERE (SELECT DATEDIFF(day, B.PaymentDate , D.Date) as DATEDIFF
 	   FROM BILL B
 	   HAVING DATEDIFF > 30);
+
 
 
 
@@ -41,6 +45,7 @@ GROUP BY SupplierID;
 
 
 
+
 SELECT PlateNb, FuelType
 FROM Truck
 WHERE Capacity > 40
@@ -48,9 +53,11 @@ GROUP BY PlateNb, FuelType;
 
 
 
+
 SELECT COUNT(M.ContractID) AS COUNT
 FROM Makes M, Contract C
 WHERE M.ConsumerID IS NULL AND M.ContractID = C.ID AND SignatureDate LIKE '___JAN___';
+
 
 
 
@@ -63,12 +70,14 @@ AND C.ID IN (SELECT C.ID
 
 
 
+
 SELECT ID, FirstName, LastName
 FROM Employee
 WHERE NOT EXISTS (SELECT *
 				  FROM Relative
 				  WHERE ID = EmployeeID)
 ORDER BY FirstName;
+
 
 
 
