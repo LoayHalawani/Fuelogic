@@ -99,7 +99,7 @@ CREATE TABLE Contract (
 	ReceptionDate DATE,
 	SignatureDate DATE,
 	Amount SMALLINT,
-	Currency CHAR(5)
+	Currency CHAR(3)
 );
 
 CREATE TABLE Bill (
