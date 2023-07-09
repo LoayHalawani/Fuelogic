@@ -54,7 +54,6 @@ CREATE TABLE Fuel (
 	Type VARCHAR(15) PRIMARY KEY,
 	SellingPrice VARCHAR(7) NOT NULL,
 	BuyingPrice VARCHAR(7) NOT NULL,
-	TotalQuantity SMALLINT
 );
 
 CREATE TABLE Storage (
