@@ -17,6 +17,7 @@ CREATE TABLE Company (
 	Nb_of_branches SMALLINT,
 	TotalIncome SMALLINT,
 	HeadquarterID CHAR(5),
+	Continent VARCHAR(15),
 	FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
 );
 
