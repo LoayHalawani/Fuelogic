@@ -22,7 +22,7 @@ CREATE TABLE Company (
 );
 
 CREATE TABLE Branch (
-    ID CHAR(6) PRIMARY KEY,	
+    	ID CHAR(6) PRIMARY KEY,	
 	HeadquarterID CHAR(5),
 	Country VARCHAR(15),
 	City VARCHAR(15),
@@ -33,7 +33,7 @@ CREATE TABLE Branch (
 	Nb_of_storages SMALLINT,
 	Status CHAR NOT NULL CHECK (STATUS IN ('M', 'S')),
 	Refuels CHAR NOT NULL CHECK (REFUELS IN ('Y', 'N')),
-    FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
+    	FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
 );
 
 CREATE TABLE Supplier ( 
@@ -103,7 +103,7 @@ CREATE TABLE Contract (
 );
 
 CREATE TABLE Bill (
-	Bill_nb CHAR(9) PRIMARY KEY,
+	Bill_nb CHAR(8) PRIMARY KEY,
 	CompanyID CHAR(5),	
 	ConsumerID CHAR(8),
 	FuelType VARCHAR(15) NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE Bill (
 );
 
 CREATE TABLE Employee (
-    ID CHAR(8) PRIMARY KEY,
+    	ID CHAR(8) PRIMARY KEY,
 	CompanyID CHAR(5),	 
 	FirstName VARCHAR(15) NOT NULL,
 	MiddleName CHAR,
