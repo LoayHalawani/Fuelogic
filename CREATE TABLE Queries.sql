@@ -1,5 +1,5 @@
 CREATE TABLE HQ (
-    ID CHAR(5) PRIMARY KEY,
+    	ID CHAR(5) PRIMARY KEY,
 	Email VARCHAR(15),
 	Nb_of_employees SMALLINT,
 	Country VARCHAR(15) NOT NULL,
