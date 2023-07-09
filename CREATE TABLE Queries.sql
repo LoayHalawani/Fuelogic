@@ -103,7 +103,7 @@ CREATE TABLE Contract (
 );
 
 CREATE TABLE Bill (
-	Bill_nb CHAR(8) PRIMARY KEY,
+	BillNb CHAR(8) PRIMARY KEY,
 	CompanyID CHAR(5),	
 	ConsumerID CHAR(8),
 	FuelType VARCHAR(15) NOT NULL,
