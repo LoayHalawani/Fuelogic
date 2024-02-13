@@ -1,15 +1,16 @@
 CREATE TABLE HQ (
-    ID CHAR(5) PRIMARY KEY,
+    ID CHAR(5),
 	Email VARCHAR(15),
 	Nb_of_employees SMALLINT,
 	Country VARCHAR(15) NOT NULL,
 	City VARCHAR(15),
 	Street VARCHAR(15),
-	Building VARCHAR(15)
+	Building VARCHAR(15),
+	PRIMARY KEY (ID)
 );
 
 CREATE TABLE Company (
-	ID CHAR(5) PRIMARY KEY,
+	ID CHAR(5),
 	RegistrationNb INT,
 	Name VARCHAR(15),
 	Nb_of_trucks SMALLINT,
@@ -18,11 +19,12 @@ CREATE TABLE Company (
 	TotalIncome SMALLINT,
 	HeadquarterID CHAR(5),
 	Continent VARCHAR(15),
+	PRIMARY KEY (ID),
 	FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
 );
 
 CREATE TABLE Branch (
-    ID CHAR(6) PRIMARY KEY,	
+    ID CHAR(6),	
 	HeadquarterID CHAR(5),
 	Country VARCHAR(15),
 	City VARCHAR(15),
@@ -33,11 +35,12 @@ CREATE TABLE Branch (
 	Nb_of_storages SMALLINT,
 	Status CHAR NOT NULL CHECK (STATUS IN ('M', 'S')),
 	Refuels CHAR NOT NULL CHECK (REFUELS IN ('Y', 'N')),
+	PRIMARY KEY (ID),
     FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
 );
 
 CREATE TABLE Supplier ( 
-    ID CHAR(6) PRIMARY KEY,
+    ID CHAR(6),
 	Name VARCHAR(15) NOT NULL,
 	Email VARCHAR(15),
 	Fax VARCHAR(15),
@@ -47,41 +50,45 @@ CREATE TABLE Supplier (
 	Street VARCHAR(15),
 	Building VARCHAR(15),
 	BranchID CHAR(6),
+	PRIMARY KEY (ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID)
 );
 
 CREATE TABLE Fuel (
-	Type VARCHAR(15) PRIMARY KEY,
+	Type VARCHAR(15),
 	SellingPrice VARCHAR(7) NOT NULL,
 	BuyingPrice VARCHAR(7) NOT NULL,
+	PRIMARY KEY (Type)
 );
 
 CREATE TABLE Storage (
-	ID CHAR(7) PRIMARY KEY,
+	ID CHAR(7),
 	Capacity SMALLINT NOT NULL,
 	CurrentCapacity SMALLINT,
 	StoringConditions VARCHAR(30),
 	LocationID CHAR(6),
 	BranchID CHAR(6),
 	FuelType VARCHAR(15),
+	PRIMARY KEY (ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID),
 	FOREIGN KEY (FuelType) REFERENCES Fuel(Type) 
 );
 
 CREATE TABLE Truck (
-	PlateNb CHAR(9) PRIMARY KEY,	
+	PlateNb CHAR(9),	
 	VINCode CHAR(17) NOT NULL UNIQUE,
 	CompanyID CHAR(5),
 	BranchID CHAR(6),
 	FuelType VARCHAR(15),
 	Capacity SMALLINT,
+	PRIMARY KEY (PlateNb),
 	FOREIGN KEY (CompanyID) REFERENCES Company(ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID),
 	FOREIGN KEY (FuelType) REFERENCES Fuel(Type) 
 );
 
 CREATE TABLE Consumer (
-	ID CHAR(8) PRIMARY KEY,
+	ID CHAR(8),
 	Name VARCHAR(15) NOT NULL,
 	Type VARCHAR(15),
 	CompanyID CHAR(5),
@@ -89,21 +96,23 @@ CREATE TABLE Consumer (
 	Country VARCHAR(15),
 	City VARCHAR(15),
 	Street VARCHAR(15),
-	Building VARCHAR(15)
+	Building VARCHAR(15),
+	PRIMARY KEY (ID)
 );
 
 CREATE TABLE Contract (
-	ID CHAR(8) PRIMARY KEY, 
+	ID CHAR(8), 
 	FuelType VARCHAR(15),
 	FuelAmount SMALLINT,
 	ReceptionDate DATE,
 	SignatureDate DATE,
 	Amount SMALLINT,
-	Currency CHAR(3)
+	Currency CHAR(3),
+	PRIMARY KEY (ID)
 );
 
 CREATE TABLE Bill (
-	BillNb CHAR(8) PRIMARY KEY,
+	BillNb CHAR(8),
 	CompanyID CHAR(5),	
 	ConsumerID CHAR(8),
 	FuelType VARCHAR(15) NOT NULL,
@@ -112,11 +121,12 @@ CREATE TABLE Bill (
 	PaymentMethod VARCHAR(15) NOT NULL,
 	Currency CHAR NOT NULL,
 	Amount SMALLINT NOT NULL,
+	PRIMARY KEY (BillNb),
 	FOREIGN KEY (ConsumerID) REFERENCES Consumer(ID) 
 );
 
 CREATE TABLE Employee (
-    ID CHAR(8) PRIMARY KEY,
+    ID CHAR(8),
 	CompanyID CHAR(5),	 
 	FirstName VARCHAR(15) NOT NULL,
 	MiddleName CHAR,
@@ -126,6 +136,7 @@ CREATE TABLE Employee (
 	WorkplaceID CHAR(5),
 	Currency VARCHAR(5),
 	Amount SMALLINT,
+	PRIMARY KEY (ID),
 	FOREIGN KEY (CompanyID) REFERENCES Company(ID)
 );
 
