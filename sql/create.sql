@@ -1,24 +1,24 @@
 CREATE TABLE HQ (
     ID CHAR(5),
-	Email VARCHAR(15),
-	Nb_of_employees SMALLINT,
-	Country VARCHAR(15) NOT NULL,
-	City VARCHAR(15),
-	Street VARCHAR(15),
-	Building VARCHAR(15),
+	Email VARCHAR(MAX),
+	Nb_of_employees INT,
+	Country VARCHAR(MAX) NOT NULL,
+	City VARCHAR(MAX),
+	Street VARCHAR(MAX),
+	Building VARCHAR(MAX),
 	PRIMARY KEY (ID)
 );
 
 CREATE TABLE Company (
 	ID CHAR(5),
 	RegistrationNb INT,
-	Name VARCHAR(15),
-	Nb_of_trucks SMALLINT,
-	Nb_of_employees SMALLINT,
-	Nb_of_branches SMALLINT,
-	TotalIncome SMALLINT,
+	Name VARCHAR(MAX),
+	Nb_of_trucks INT,
+	Nb_of_employees INT,
+	Nb_of_branches INT,
+	TotalIncome INT,
 	HeadquarterID CHAR(5),
-	Continent VARCHAR(15),
+	Continent VARCHAR(MAX),
 	PRIMARY KEY (ID),
 	FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
 );
@@ -26,13 +26,13 @@ CREATE TABLE Company (
 CREATE TABLE Branch (
     ID CHAR(6),	
 	HeadquarterID CHAR(5),
-	Country VARCHAR(15),
-	City VARCHAR(15),
-	Street VARCHAR(15),
-	Building VARCHAR(15),
-	Nb_of_employees SMALLINT,
-	Nb_of_trucks SMALLINT,
-	Nb_of_storages SMALLINT,
+	Country VARCHAR(MAX),
+	City VARCHAR(MAX),
+	Street VARCHAR(MAX),
+	Building VARCHAR(MAX),
+	Nb_of_employees INT,
+	Nb_of_trucks INT,
+	Nb_of_storages INT,
 	Status CHAR NOT NULL CHECK (STATUS IN ('M', 'S')),
 	Refuels CHAR NOT NULL CHECK (REFUELS IN ('Y', 'N')),
 	PRIMARY KEY (ID),
@@ -41,34 +41,34 @@ CREATE TABLE Branch (
 
 CREATE TABLE Supplier ( 
     ID CHAR(6),
-	Name VARCHAR(15) NOT NULL,
-	Email VARCHAR(15),
-	Fax VARCHAR(15),
-	FuelType VARCHAR(15) NOT NULL,
-	Country VARCHAR(15),
-	City VARCHAR(15),
-	Street VARCHAR(15),
-	Building VARCHAR(15),
+	Name VARCHAR(MAX) NOT NULL,
+	Email VARCHAR(MAX),
+	Fax VARCHAR(MAX),
+	FuelType VARCHAR(MAX) NOT NULL,
+	Country VARCHAR(MAX),
+	City VARCHAR(MAX),
+	Street VARCHAR(MAX),
+	Building VARCHAR(MAX),
 	BranchID CHAR(6),
 	PRIMARY KEY (ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID)
 );
 
 CREATE TABLE Fuel (
-	Type VARCHAR(15),
-	SellingPrice VARCHAR(7) NOT NULL,
-	BuyingPrice VARCHAR(7) NOT NULL,
+	Type VARCHAR(MAX),
+	SellingPrice VARCHAR(MAX) NOT NULL,
+	BuyingPrice VARCHAR(MAX) NOT NULL,
 	PRIMARY KEY (Type)
 );
 
 CREATE TABLE Storage (
 	ID CHAR(7),
-	Capacity SMALLINT NOT NULL,
-	CurrentCapacity SMALLINT,
-	StoringConditions VARCHAR(30),
+	Capacity INT NOT NULL,
+	CurrentCapacity INT,
+	StoringConditions VARCHAR(MAX),
 	LocationID CHAR(6),
 	BranchID CHAR(6),
-	FuelType VARCHAR(15),
+	FuelType VARCHAR(MAX),
 	PRIMARY KEY (ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID),
 	FOREIGN KEY (FuelType) REFERENCES Fuel(Type) 
@@ -79,8 +79,8 @@ CREATE TABLE Truck (
 	VINCode CHAR(17) NOT NULL UNIQUE,
 	CompanyID CHAR(5),
 	BranchID CHAR(6),
-	FuelType VARCHAR(15),
-	Capacity SMALLINT,
+	FuelType VARCHAR(MAX),
+	Capacity INT,
 	PRIMARY KEY (PlateNb),
 	FOREIGN KEY (CompanyID) REFERENCES Company(ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID),
@@ -89,24 +89,24 @@ CREATE TABLE Truck (
 
 CREATE TABLE Consumer (
 	ID CHAR(8),
-	Name VARCHAR(15) NOT NULL,
-	Type VARCHAR(15),
+	Name VARCHAR(MAX) NOT NULL,
+	Type VARCHAR(MAX),
 	CompanyID CHAR(5),
-	PhoneNb SMALLINT,
-	Country VARCHAR(15),
-	City VARCHAR(15),
-	Street VARCHAR(15),
-	Building VARCHAR(15),
+	PhoneNb INT,
+	Country VARCHAR(MAX),
+	City VARCHAR(MAX),
+	Street VARCHAR(MAX),
+	Building VARCHAR(MAX),
 	PRIMARY KEY (ID)
 );
 
 CREATE TABLE Contract (
 	ID CHAR(8), 
-	FuelType VARCHAR(15),
-	FuelAmount SMALLINT,
+	FuelType VARCHAR(MAX),
+	FuelAmount INT,
 	ReceptionDate DATE,
 	SignatureDate DATE,
-	Amount SMALLINT,
+	Amount INT,
 	Currency CHAR(3),
 	PRIMARY KEY (ID)
 );
@@ -115,12 +115,12 @@ CREATE TABLE Bill (
 	BillNb CHAR(8),
 	CompanyID CHAR(5),	
 	ConsumerID CHAR(8),
-	FuelType VARCHAR(15) NOT NULL,
-	FuelAmount SMALLINT NOT NULL,
+	FuelType VARCHAR(MAX) NOT NULL,
+	FuelAmount INT NOT NULL,
 	PaymentDate DATE,
-	PaymentMethod VARCHAR(15) NOT NULL,
+	PaymentMethod VARCHAR(MAX) NOT NULL,
 	Currency CHAR NOT NULL,
-	Amount SMALLINT NOT NULL,
+	Amount INT NOT NULL,
 	PRIMARY KEY (BillNb),
 	FOREIGN KEY (ConsumerID) REFERENCES Consumer(ID) 
 );
@@ -128,28 +128,28 @@ CREATE TABLE Bill (
 CREATE TABLE Employee (
     ID CHAR(8),
 	CompanyID CHAR(5),	 
-	FirstName VARCHAR(15) NOT NULL,
+	FirstName VARCHAR(MAX) NOT NULL,
 	MiddleName CHAR,
-	LastName VARCHAR(15) NOT NULL,
+	LastName VARCHAR(MAX) NOT NULL,
 	Gender CHAR NOT NULL CHECK (Gender IN ('F', 'M')), 
-	Job VARCHAR(15) NOT NULL,
+	Job VARCHAR(MAX) NOT NULL,
 	WorkplaceID CHAR(5),
-	Currency VARCHAR(5),
-	Amount SMALLINT,
+	Currency VARCHAR(MAX),
+	Amount INT,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (CompanyID) REFERENCES Company(ID)
 );
 
 CREATE TABLE Relative (
 	EmployeeID CHAR(8),
-	Name VARCHAR(15),
-	Age SMALLINT,
-	Relationship VARCHAR(10) NOT NULL,
-	PhoneNb VARCHAR(15) NOT NULL,
-	Country VARCHAR(15),
-	City VARCHAR(15),
-	Street VARCHAR(15),
-	Building VARCHAR(15),
+	Name VARCHAR(10),
+	Age INT,
+	Relationship VARCHAR(MAX) NOT NULL,
+	PhoneNb VARCHAR(MAX) NOT NULL,
+	Country VARCHAR(MAX),
+	City VARCHAR(MAX),
+	Street VARCHAR(MAX),
+	Building VARCHAR(MAX),
 	PRIMARY KEY (EmployeeID, Name),
 	FOREIGN KEY (EmployeeID) REFERENCES Employee(ID)
 );
@@ -175,28 +175,28 @@ CREATE TABLE DeliversTo (
 
 CREATE TABLE EmployeePhoneNb (
 	EmployeeID CHAR(8),
-	PhoneNb VARCHAR(15),
+	PhoneNb CHAR(8),
 	PRIMARY KEY (EmployeeID, PhoneNb),
 	FOREIGN KEY (EmployeeID) REFERENCES Employee(ID)
 );
 
 CREATE TABLE BranchPhoneNb (
 	BranchID CHAR(6),
-	PhoneNb VARCHAR(15),
+	PhoneNb CHAR(8),
 	PRIMARY KEY (BranchID, PhoneNb),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID)
 );
 
 CREATE TABLE HQPhoneNb (
 	HeadquarterID CHAR(5),
-	PhoneNb VARCHAR(15),
+	PhoneNb CHAR(8),
 	PRIMARY KEY (HeadquarterID, PhoneNb),
 	FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
 );
 
 CREATE TABLE SupplierPhoneNb (
 	SupplierID CHAR(6),
-	PhoneNb VARCHAR(15),
+	PhoneNb CHAR(8),
 	PRIMARY KEY (SupplierID, PhoneNb),
 	FOREIGN KEY (SupplierID) REFERENCES Supplier(ID)
 );

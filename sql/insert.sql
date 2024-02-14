@@ -32,7 +32,7 @@ INSERT INTO Storage VALUES
 ('sto-00', 100, 83, 'Good temperature and humidity', 'loc-01', 'bra-01', 'Benzene'),
 ('sto-002', 100, 79, 'Good temperature and humidity', 'loc-02', 'bra-01', 'Diesel'),
 ('sto-003', 100, 85, 'Good temperature and humidity', 'loc-01', 'bra-02', 'Benzene'),
-('sto-004', 100, 71, 'Good temperature and humidity', 'loc-02', 'bra-02', 'Disel'),
+('sto-004', 100, 71, 'Good temperature and humidity', 'loc-02', 'bra-02', 'Diesel'),
 ('sto-005', 100, 56, 'Good temperature and humidity', 'loc-01', 'bra-03', 'Benzene'),
 ('sto-006', 100, 89, 'Good temperature and humidity', 'loc-02', 'bra-03', 'Diesel'),
 ('sto-007', 100, 95, 'Good temperature and humidity', 'loc-01', 'bra-04', 'Benzene'),
@@ -40,19 +40,7 @@ INSERT INTO Storage VALUES
 ('sto-009', 100, 84, 'Good temperature and humidity', 'loc-01', 'bra-05', 'Benzene'),
 ('sto-010', 100, 93, 'Good temperature and humidity', 'loc-02', 'bra-05', 'Diesel'),
 ('sto-011', 100, 49, 'Good temperature and humidity', 'loc-01', 'bra-06', 'Benzene'),
-('sto-012', 100, 72, 'Good temperature and humidity', 'loc-02', 'bra-06', 'Diesel'),
-('sto-001', 100, 83, 'Good temperature and humidity', 'loc-01', 'bra-07', 'Benzene'),
-('sto-002', 100, 79, 'Good temperature and humidity', 'loc-02', 'bra-07', 'Diesel'),
-('sto-003', 100, 85, 'Good temperature and humidity', 'loc-01', 'bra-08', 'Benzene'),
-('sto-004', 100, 71, 'Good temperature and humidity', 'loc-02', 'bra-08', 'Diesel'),
-('sto-005', 100, 56, 'Good temperature and humidity', 'loc-01', 'bra-09', 'Benzene'),
-('sto-006', 100, 89, 'Good temperature and humidity', 'loc-02', 'bra-09', 'Diesel'),
-('sto-007', 100, 95, 'Good temperature and humidity', 'loc-01', 'bra-10', 'Benzene'),
-('sto-008', 100, 63, 'Good temperature and humidity', 'loc-02', 'bra-10', 'Diesel'),
-('sto-009', 100, 84, 'Good temperature and humidity', 'loc-01', 'bra-11', 'Benzene'),
-('sto-010', 100, 93, 'Good temperature and humidity', 'loc-02', 'bra-11', 'Diesel'),
-('sto-011', 100, 49, 'Good temperature and humidity', 'loc-01', 'bra-12', 'Benzene'),
-('sto-012', 100, 72, 'Good temperature and humidity', 'loc-02', 'bra-12', 'Diesel');
+('sto-012', 100, 72, 'Good temperature and humidity', 'loc-02', 'bra-06', 'Diesel');
 
 INSERT INTO Fuel VALUES
 ('Benzene', '1.24/l', '1.24/l'),
@@ -92,7 +80,7 @@ INSERT INTO Truck VALUES
 ('FRW-J-274', '1723ABCD456', 'co-05', 'bra-09', 'Benzene', 33),
 ('SAD-GH-18', '1823ABCD456', 'co-05', 'bra-09', 'Diesel', 29),
 ('PL-HB-6', '1923ABCD456', 'co-05', 'bra-10', 'Benzene', 60),
-('WES-HH-100', '2023ABCD456', 'co-05', 'bra-10', 'Diesel', 70),
+('WES-HH-10', '2023ABCD456', 'co-05', 'bra-10', 'Diesel', 70),
 ('CUT402', '2123ABCD456', 'co-06', 'bra-11', 'Benzene', 72),
 ('WISPA', '2223ABCD456', 'co-06', 'bra-11', 'Diesel', 66),
 ('K1W1-01', '2323ABCD456', 'co-06', 'bra-12', 'Benzene', 44),
@@ -125,20 +113,13 @@ INSERT INTO Contract VALUES
 ('contr-10', 'Diesel', 89, '2021-01-12', '2021-01-11', 100.57, 'CAD'),
 ('contr-11', 'Benzene', 65, '2021-02-10', '2021-02-09', 80.6, 'CAD'),
 ('contr-12', 'Diesel', 66, '2021-02-12', '2021-02-11', 74.58, 'CAD'),
-('contr-13', 'Benzene', 95, '2021-01-14', '2021-01-13', 117.8, 'USD'),
-('contr-14', 'Diesel', 63, '2021-01-16', '2021-01-15', 71.19, 'USD'),
-('contr-15', 'Benzene', 67, '2021-02-14', '2021-02-13', 83.08, 'USD'),
-('contr-16', 'Diesel', 68, '2021-02-16', '2021-02-15', 76.84, 'USD'),
-('contr-17', 'Benzene', 84, '2021-01-18', '2021-01-17', 104.16, 'EUR'),
-('contr-18', 'Diesel', 93, '2021-01-20', '2021-01-19', 105.09, 'EUR'),
-('contr-19', 'Benzene', 69, '2021-02-18', '2021-02-17', 85.56, 'EUR');
 
 INSERT INTO Bill VALUES
-('Bill-001', 'consu-01', 'co-01', 'Benzene', 250, '2020-12-25', 'Cash', '$', 180120),
-('Bill-002', 'consu-02', 'co-02', 'Benzene', 300, '2020-12-28', 'Check', '$', 90900),
-('Bill-003', 'consu-03', 'co-03', 'Diesel', 400, '2020-11-28', 'Cash', '$', 30000),
-('Bill-004', 'consu-04', 'co-04', 'Benzene', 400, '2020-09-25', 'Check', '$', 3000),
-('Bill-005', 'consu-05', 'co-04', 'Benzene', 1000, '2020-08-25', 'Cash', '$', 3750);
+('Bill-001', 'co-01', 'consu-01', 'Benzene', 250, '2020-12-25', 'Cash', '$', 180120),
+('Bill-002', 'co-02', 'consu-02', 'Benzene', 300, '2020-12-28', 'Check', '$', 90900),
+('Bill-003', 'co-03', 'consu-03', 'Diesel', 400, '2020-11-28', 'Cash', '$', 30000),
+('Bill-004', 'co-04', 'consu-04', 'Benzene', 400, '2020-09-25', 'Check', '$', 3000),
+('Bill-005', 'co-04', 'consu-05', 'Benzene', 1000, '2020-08-25', 'Cash', '$', 3750);
 
 INSERT INTO Employee VALUES
 ('emp-0001', 'co-01', 'Jenna', 'M', 'Walker', 'F', 'Accountant', 'wo-01', 'USD', 700),
@@ -155,28 +136,28 @@ INSERT INTO Employee VALUES
 ('emp-0012', 'co-06', 'Elisa', 'V', 'Mahoney', 'F', 'Cashier', 'wo-06', 'CAD', 1000);
 
 INSERT INTO Relative VALUES
-('rel-0001', 'Nelson', 24, 'Father', '031234', 'America', 'Orlando', NULL, NULL),
-('rel-0002', 'Jaxon', 31, 'Uncle', '031235', 'Germany', 'Berlin', NULL, NULL),
-('rel-0003', 'Cheyenne', 25, 'Sister', '031236', 'North Korea', 'Pyong Yang', NULL, NULL),
-('rel-0004', 'Tanner', 35, 'Husband', '031237', 'Belgium', 'Brussels', NULL, NULL),
-('rel-0005', 'Courtney', 24, 'Cousin', '031238', 'Argentina', 'Buenos Aires', NULL, NULL),
-('rel-0006', 'Giada', 24, 'Fiance', '031239', 'Pakistan', 'Islamabad', NULL, NULL),
-('rel-0007', 'Heaven', 29, 'Wife', '031241', 'Ireland', 'Dublin', NULL, NULL),
-('rel-0008', 'Regina', 41, 'Sister', '031242', 'Italy', 'Rome', NULL, NULL),
-('rel-0009', 'Thomas', 35, 'Brother', '031243', 'England', 'Manchester', NULL, NULL),
-('rel-0010', 'Rebecca', 27, 'Mother', '031245', 'Mexico', 'Mexico City', NULL, NULL);
+('emp-0001', 'Nelson', 24, 'Father', '031234', 'America', 'Orlando', NULL, NULL),
+('emp-0002', 'Jaxon', 31, 'Uncle', '031235', 'Germany', 'Berlin', NULL, NULL),
+('emp-0003', 'Cheyenne', 25, 'Sister', '031236', 'North Korea', 'Pyong Yang', NULL, NULL),
+('emp-0004', 'Tanner', 35, 'Husband', '031237', 'Belgium', 'Brussels', NULL, NULL),
+('emp-0005', 'Courtney', 24, 'Cousin', '031238', 'Argentina', 'Buenos Aires', NULL, NULL),
+('emp-0006', 'Giada', 24, 'Fiance', '031239', 'Pakistan', 'Islamabad', NULL, NULL),
+('emp-0007', 'Heaven', 29, 'Wife', '031241', 'Ireland', 'Dublin', NULL, NULL),
+('emp-0008', 'Regina', 41, 'Sister', '031242', 'Italy', 'Rome', NULL, NULL),
+('emp-0009', 'Thomas', 35, 'Brother', '031243', 'England', 'Manchester', NULL, NULL),
+('emp-0010', 'Rebecca', 27, 'Mother', '031245', 'Mexico', 'Mexico City', NULL, NULL);
 
 INSERT INTO Schedule VALUES
-('sch-0001', '2021-01-01', '07:30 AM', '02:00 PM'),
-('sch-0001', '2021-01-10', '07:30 AM', '02:00 PM'),
-('sch-0001', '2021-01-05', '07:30 AM', '02:00 PM'),
-('sch-0001', '2021-01-06', '08:30 AM', '02:00 PM'),
-('sch-0001', '2021-01-05', '08:30 AM', '02:00 PM'),
-('sch-0001', '2021-01-16', '07:30 AM', '01:00 PM'),
-('sch-0001', '2021-01-17', '07:30 AM', '02:00 PM'),
-('sch-0001', '2021-01-21', '07:30 AM', '02:30 PM'),
-('sch-0001', '2021-01-26', '08:30 AM', '02:00 PM'),
-('sch-0001', '2021-01-12', '07:30 AM', '02:00 PM');
+('emp-0001', '2021-01-01', '07:30 AM', '02:00 PM'),
+('emp-0002', '2021-01-10', '07:30 AM', '02:00 PM'),
+('emp-0003', '2021-01-05', '07:30 AM', '02:00 PM'),
+('emp-0004', '2021-01-06', '08:30 AM', '02:00 PM'),
+('emp-0005', '2021-01-05', '08:30 AM', '02:00 PM'),
+('emp-0006', '2021-01-16', '07:30 AM', '01:00 PM'),
+('emp-0007', '2021-01-17', '07:30 AM', '02:00 PM'),
+('emp-0008', '2021-01-21', '07:30 AM', '02:30 PM'),
+('emp-0009', '2021-01-26', '08:30 AM', '02:00 PM'),
+('emp-0010', '2021-01-12', '07:30 AM', '02:00 PM');
 
 INSERT INTO DeliversTo VALUES
 ('H.HM994', 'consu-01', '323ABCD456', '2021-02-01'),
@@ -188,7 +169,7 @@ INSERT INTO DeliversTo VALUES
 ('AYP197', 'consu-07', '1523ABCD456', '2021-02-13'),
 ('AA2362', 'consu-08', '1623ABCD456', '2021-02-15'),
 ('PL-HB-6', 'consu-09', '1923ABCD456', '2021-02-17'),
-('WES-HH-100', 'consu-10', '2023ABCD456', '2021-02-19'),
+('WES-HH-10', 'consu-10', '2023ABCD456', '2021-02-19'),
 ('K1W1-01', 'consu-11', '2323ABCD456', '2021-02-21'),
 ('LSN4149', 'consu-12', '1323ABCD456', '2021-02-23');
 
@@ -266,22 +247,15 @@ INSERT INTO SupplierPhoneNb VALUES
 ('sup-12', '31031331');
 
 INSERT INTO Makes VALUES
-('contr-01', NULL, 'sup-01'),
-('contr-02', 'consu-01', NULL),
-('contr-03', 'consu-03', NULL),
-('contr-04', NULL, 'sup-02'),
-('contr-05', 'consu-09', NULL),
-('contr-06', NULL, 'sup-05'),
-('contr-07', NULL, 'sup-04'),
-('contr-08', 'consu-04', NULL),
-('contr-09', 'consu-06', NULL),
-('contr-10', NULL, 'sup-09'),
-('contr-11', 'consu-08', NULL),
-('contr-12', NULL, 'sup-10'),
-('contr-13', 'consu-10', NULL),
-('contr-14', 'consu-02', NULL),
-('contr-15', NULL, 'sup-03'),
-('contr-16', 'consu-07', NULL),
-('contr-17', NULL, 'sup-08'),
-('contr-18', NULL, 'sup-02'),
-('contr-19', NULL, 'sup-01');
+('contr-01', 'consu-01', 'sup-01'),
+('contr-02', 'consu-02', 'sup-02'),
+('contr-03', 'consu-03', 'sup-03'),
+('contr-04', 'consu-04', 'sup-04'),
+('contr-05', 'consu-05', 'sup-05'),
+('contr-06', 'consu-06', 'sup-06'),
+('contr-07', 'consu-07', 'sup-07'),
+('contr-08', 'consu-08', 'sup-08'),
+('contr-09', 'consu-09', 'sup-09'),
+('contr-10', 'consu-10', 'sup-10'),
+('contr-11', 'consu-11', 'sup-11'),
+('contr-12', 'consu-12', 'sup-12');
