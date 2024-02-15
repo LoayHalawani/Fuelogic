@@ -18,17 +18,14 @@ AND C.ID IN (SELECT C.ID
 			 FROM HQ H
 			 WHERE B.HeadquarterID = H.ID AND C.HeadquarterID = H.ID);
 
-SELECT C.FirstName, C.LastName, 1.15 * B.Amount AS Fine, B.Currency
+SELECT C.Name, 1.15 * B.Amount AS Fine, B.Currency
 FROM Consumer C, Bill B, DeliversTo D
-WHERE (SELECT DATEDIFF(day, B.PaymentDate , D.Date) as DATEDIFF
-	   FROM BILL B
-	   HAVING DATEDIFF > 30);
+WHERE DATEDIFF(day, B.PaymentDate , D.Date) > 30;
 
-SELECT (COUNT(*) * 100/ ((SELECT COUNT(*) 
+SELECT SupplierID, (COUNT(*) * 100 / ((SELECT COUNT(*) 
 						  FROM Makes) + (SELECT COUNT(*)
 										 FROM Bill))) AS PERCENTAGE
 FROM Makes
-WHERE SupplierID IS NULL
 GROUP BY SupplierID;
 
 SELECT PlateNb, FuelType
@@ -38,9 +35,9 @@ GROUP BY PlateNb, FuelType;
 
 SELECT COUNT(M.ContractID) AS COUNT
 FROM Makes M, Contract C
-WHERE M.ConsumerID IS NULL AND M.ContractID = C.ID AND SignatureDate LIKE '___JAN___';
+WHERE M.ContractID = C.ID AND SignatureDate LIKE '_____01___';
 
-SELECT R.Name, R.Relationship, R.PhoneNb, C.ID
+SELECT DISTINCT(R.PhoneNb), R.Name, R.Relationship, C.ID
 FROM Employee E, Relative R, Company C
 WHERE R.EmployeeID = 'emp-0001'
 AND C.ID IN (SELECT C.ID
@@ -52,7 +49,7 @@ FROM Employee
 WHERE NOT EXISTS (SELECT *
 				  FROM Relative
 				  WHERE ID = EmployeeID)
-ORDER BY FirstName;
+ORDER BY ID;
 
 SELECT E.ID, E.FirstName, E.LastName, C.ID
 FROM Employee E, Company C
