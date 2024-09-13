@@ -8,20 +8,16 @@ class Employee {
 
     // (insert)
     public function create(
-        $phone_nb, $gender, $email, $id_of_workplace, $dob, 
+        $phone_nb, $gender, $email, $workplace_id, 
         $job, $age, $company_id, $first_name, $last_name, 
-        $middle_name, $cnss_nb, $salary_currency, $salary_amount,
-        $address_floor, $address_building, $address_street, $address_city,
-        $address_country
+        $middle_name, $salary, $address
     ) {
         // SQL query to insert employee data
         $sql = "INSERT INTO employees (
-                    phone_nb, gender, email, id_of_workplace, dob, job, age, 
-                    company_id, first_name, last_name, middle_name, cnss_nb, 
-                    salary_currency, salary_amount, address_floor, 
-                    address_building, address_street, address_city, 
-                    address_country
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    PhoneNb, Gender, Email, WorkplaceID, Job, Age, 
+                    CompanyID, FirstName, LastName, MiddleName, 
+                    Salary, Address
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Prepare the SQL statement
         $stmt = $this->conn->prepare($sql);
@@ -34,11 +30,9 @@ class Employee {
         // "ssss" are placeholders for the data types: string (s), integer (i), double (d), blob (b)
         $stmt->bind_param(
             "ssssssssssssdsssss", // Adjust types based on your data
-            $phone_nb, $gender, $email, $id_of_workplace, $dob, 
+            $phone_nb, $gender, $email, $workplace_id,
             $job, $age, $company_id, $first_name, $last_name, 
-            $middle_name, $cnss_nb, $salary_currency, $salary_amount,
-            $address_floor, $address_building, $address_street, $address_city,
-            $address_country
+            $middle_name, $salary, $address
         );
 
         // Execute the statement
