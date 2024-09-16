@@ -7,11 +7,13 @@ $basePath = '/fuelogic';
 $uri = str_replace($basePath, '', $uri);
 
 if ($uri === '/') {
-    include './pages/home.php';
+    include './views/home.php';
 } elseif ($uri === '/login') {
-    include './pages/login.php';
+    include './views/login.php';
 } elseif ($uri === '/signup') {
-    include './pages/signup.php';
+    include './views/signup.php';
+} elseif ($uri === '/add-employee') {
+        include './views/addEmployee.php';
 } else {
     header("HTTP/1.0 404 Not Found");
     echo json_encode(['message' => 'Route not found']);

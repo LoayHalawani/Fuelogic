@@ -86,7 +86,7 @@ CREATE TABLE Truck (
 	FuelType VARCHAR(255),
 	Capacity INT,
 	PRIMARY KEY (PlateNb),
-	FOREIGN KEY (CompanyID) REFERENCES Company(ID),
+	FOREIGN KEY (CompanyID) REFERENCES Company_A(ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID),
 	FOREIGN KEY (FuelType) REFERENCES Fuel(Type) 
 );
@@ -137,13 +137,13 @@ CREATE TABLE Employee (
 	LastName VARCHAR(255) NOT NULL,
 	Gender CHAR NOT NULL CHECK (Gender IN ('F', 'M')),
 	Email VARCHAR(255) NOT NULL,
-	PhoneNb VARCHAR(255) NOT NULL,
 	Age INT,
 	Job VARCHAR(255) NOT NULL,
 	Salary INT,
 	WorkplaceID CHAR(5),
+	Address VARCHAR(255),
 	PRIMARY KEY (ID),
-	FOREIGN KEY (CompanyID) REFERENCES Company(ID)
+	FOREIGN KEY (CompanyID) REFERENCES Company_A(ID)
 );
 
 CREATE TABLE Relative (
@@ -160,6 +160,8 @@ CREATE TABLE Relative (
 	FOREIGN KEY (EmployeeID) REFERENCES Employee(ID)
 );
 
+// RELATIONS
+
 CREATE TABLE Schedule (
 	EmployeeID CHAR(8),
 	ScheduleDate DATE,
@@ -172,11 +174,39 @@ CREATE TABLE Schedule (
 CREATE TABLE DeliversTo (
 	TruckPlateNb CHAR(9),
 	ConsumerID CHAR(8),
-	TruckVINCode CHAR(17),
 	Date DATE,
 	PRIMARY KEY (TruckPlateNb, ConsumerID),
-	FOREIGN KEY (TruckVINCode) REFERENCES Truck(VINCode),
+	FOREIGN KEY (TruckPlateNb) REFERENCES PlateNb(ID),
 	FOREIGN KEY (ConsumerID) REFERENCES Consumer(ID)
+);
+
+// ensures that the employee can have multiple phone numbers
+CREATE TABLE Employee_phone_nb (
+	EmployeeID CHAR(8),
+	PhoneNb VARCHAR(255) NOT NULL,
+	PRIMARY KEY (EmployeeID, PhoneNb),
+	FOREIGN KEY (EmployeeID) REFERENCES Employee(ID)
+);
+
+CREATE TABLE Branch_phone_nb (
+	BranchID CHAR(6),
+	PhoneNb VARCHAR(255) NOT NULL,
+	PRIMARY KEY (BranchID, PhoneNb),
+	FOREIGN KEY (BranchID) REFERENCES Branch(ID)
+);
+
+CREATE TABLE HQ_phone_nb (
+	HqID CHAR(5),
+	PhoneNb VARCHAR(255) NOT NULL,
+	PRIMARY KEY (HqID, PhoneNb),
+	FOREIGN KEY (HqID) REFERENCES HQ(ID)
+);
+
+CREATE TABLE Supplier_phone_nb (
+	SupplierID CHAR(6),
+	PhoneNb VARCHAR(255) NOT NULL,
+	PRIMARY KEY (HqID, PhoneNb),
+	FOREIGN KEY (SupplierID) REFERENCES Supplier(ID)
 );
 
 CREATE TABLE Makes (

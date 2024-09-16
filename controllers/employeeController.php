@@ -5,21 +5,19 @@ class EmployeeController {
 
     public function __construct($db) {
         // Initialize the Employee model
-        $this->employeeModel = new Employee($db);
+        $this->employeeModel = new EmployeeModel($db); // import Employee model object
     }
 
     // Handle employee creation
     public function createEmployee(
-        $phone_nb, $gender, $email, $id_of_workplace, $dob, $job, $age,
-        $company_id, $first_name, $last_name, $middle_name, $cnss_nb, 
-        $salary_currency, $salary_amount, $address_floor, $address_building, 
-        $address_street, $address_city, $address_country
+        $phone_nb, $gender, $email, $workplace_id, 
+        $job, $age, $company_id, $first_name, $last_name, 
+        $middle_name, $salary, $address
     ) {
         if ($this->employeeModel->create(
-            $phone_nb, $gender, $email, $id_of_workplace, $dob, $job, $age,
-            $company_id, $first_name, $last_name, $middle_name, $cnss_nb, 
-            $salary_currency, $salary_amount, $address_floor, $address_building, 
-            $address_street, $address_city, $address_country
+            $phone_nb, $gender, $email, $workplace_id, 
+            $job, $age, $company_id, $first_name, $last_name, 
+            $middle_name, $salary, $address
         )) {
             // Redirect to the success page or show a success message
             $this->render('employeeView', ['message' => 'Employee created successfully!']);
