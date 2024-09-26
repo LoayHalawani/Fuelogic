@@ -19,7 +19,7 @@ class CompanyModel {
     
             $sql1 = "INSERT INTO company_a (
                         ID, RegistrationNb, Nb_of_trucks, Nb_of_employees, Nb_of_branches,
-                        TotalIncome, HeadquarterID
+                        TotalIncome, HeadquarterID, Name, Continent
                     ) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
             $company_id = $this->generateCompanyID();
@@ -32,6 +32,8 @@ class CompanyModel {
             $stmt1->bindValue(5, $nb_of_employees, PDO::PARAM_STR);
             $stmt1->bindValue(6, $total_income, PDO::PARAM_STR);
             $stmt1->bindValue(7, $hq_id, PDO::PARAM_INT);
+            $stmt1->bindValue(8, $name, PDO::PARAM_INT);
+            $stmt1->bindValue(9, $continent, PDO::PARAM_INT);
     
             if (!$stmt1->execute()) {
                 throw new Exception("Failed to insert employee: " . implode(", ", $stmt1->errorInfo()));
@@ -57,12 +59,18 @@ class CompanyModel {
         }
     }
 
+    public function getAll() {
+        $sql = "SELECT * FROM company_a";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function findById($company_id) {
-        $sql = "SELECT * FROM company WHERE company_id = ?";
+        $sql = "SELECT * FROM company_a WHERE ID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $company_id);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
-
 }

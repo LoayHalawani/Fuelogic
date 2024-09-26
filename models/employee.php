@@ -70,6 +70,13 @@ class EmployeeModel {
         }
     }    
 
+    public function getAll() {
+        $sql = "SELECT * FROM employee";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function findById($employee_id) {
         $sql = "SELECT * FROM employees WHERE employee_id = ?";
         $stmt = $this->conn->prepare($sql);

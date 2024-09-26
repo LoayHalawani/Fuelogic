@@ -15,18 +15,27 @@ class HqController {
             $email, $nb_of_employees, $country, $city,
             $street, $building
         )) {
-            $this->render('hqView', ['message' => 'HQ created successfully!']);
+            return true;
         } else {
-            $this->render('hqView', ['message' => 'Failed to create HQ.']);
+            return false;
+        }
+    }
+
+    public function getAllHeadquarters() {
+        $result = $this->hqModel->getAll();
+        if ($result) {
+            return ['success' => true, 'headquarters' => $result];
+        } else {
+            return ['success' => false, 'error' => 'Failed to get hqs.'];
         }
     }
 
     public function getHqByID($hq_id) {
         $hq = $this->hqModel->getById($hq_id);
         if ($hq) {
-            $this->render('hqView', ['hq' => $hq]);
+            $this->render('add-headquarter', ['hq' => $hq]);
         } else {
-            $this->render('hqView', ['message' => 'HQ not found.']);
+            $this->render('add-headquarter', ['message' => 'HQ not found.']);
         }
     }
 
@@ -42,11 +51,5 @@ class HqController {
         } else {
             $this->render('hqView', ['message' => 'Failed to update HQ.']);
         }
-    }
-
-    // Utility method to render a view
-    private function render($view, $data = []) {
-        extract($data);  // Extracts the data array into variables
-        require "../views/{$view}.php";  // Loads the view file
     }
 }

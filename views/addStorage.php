@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add headquarter</title>
-    <link href="css/addHeadquarter.css" rel="stylesheet">
+    <title>Add branch</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -44,33 +43,29 @@
             </div>
         </div>
     </nav>
-    
+
     <div class="d-flex justify-content-center vh-50 mt-5" id="">
         <div class="col-sm-8 col-md-6 border border-dark rounded p-4">
             <form>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" required>
+                    <label for="exampleInputEmail1" class="form-label">Capacity</label>
+                    <input type="email" class="form-control" name="capacity" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Number of employees</label>
-                    <input type="text" class="form-control" name="nb_of_employees">
+                    <label class="form-label" for="exampleCheck1">Current capacity</label>
+                    <input type="text" class="form-control" name="current_capacity">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="country" required>
+                    <label for="exampleInputPassword1" class="form-label">Storing conditions</label>
+                    <input type="password" class="form-control" name="storing_conditions" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">City</label>
-                    <input type="text" class="form-control" name="city" required>
+                    <label class="form-label" for="exampleCheck1">Branch id</label>
+                    <input type="text" class="form-control" name="branch_id" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Street</label>
-                    <input type="text" name="street" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Street</label>
-                    <input type="text" name="building" class="form-control" required>
+                    <label class="form-label" for="exampleCheck1">Fuel type</label>
+                    <input type="text" class="form-control" name="fuel_type" required>
                 </div>
                 <button type="submit" class="btn btn-dark">Submit</button>
             </form>
@@ -82,30 +77,28 @@
 
 <?php
 require_once 'config/database.php'; 
-require_once 'models/headquarter.php';
-require_once 'controllers/hqController.php';
+require_once 'models/storage.php';
+require_once 'controllers/storageController.php';
 
 $db = new Database();
 $connection = $db->getConnection();
 
-$hqController = new HqController($connection);
+$storageController = new StorageController($connection);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = $_POST['email'];
-    $nb_of_employees = $_POST['nb_of_employees'];
-    $country = $_POST['country'];
-    $city = $_POST['city'];
-    $street = $_POST['street'];
-    $building = $_POST['building'];
+    $capacity = $_POST['capacity'];
+    $current_capacity = $_POST['current_capacity'];
+    $storing_conditions = $_POST['storing_conditions'];
+    $branch_id = $_POST['branch_id'];
+    $fuel_type = $_POST['fuel_type'];
 
-    $result = $hqController->createHq(
-        $email, $nb_of_employees, $country, $city,
-        $street, $building
+    $result = $branchController->createBranch(
+        $capacity, $current_capacity, $storing_conditions, $branch_id, $fuel_type
     );
 
     if($result) {
-        echo "Headquarter has been added";
+        echo "Storage has been added";
     } else {
-        echo "Error adding headquarter";
+        echo "Error adding branch";
     }
 }

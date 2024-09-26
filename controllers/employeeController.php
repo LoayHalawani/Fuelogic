@@ -8,7 +8,6 @@ class EmployeeController {
         $this->employeeModel = new EmployeeModel($db); // import Employee model object
     }
 
-    // Handle employee creation
     public function createEmployee(
         $phone_nb, $gender, $email, $workplace_id, 
         $job, $age, $company_id, $first_name, $last_name, 
@@ -19,48 +18,43 @@ class EmployeeController {
             $job, $age, $company_id, $first_name, $last_name, 
             $middle_name, $salary, $address
         )) {
-            // Redirect to the success page or show a success message
-            $this->render('employeeView', ['message' => 'Employee created successfully!']);
+            return ['success' => true]; // => in php is declaration. in this case a dictionary is returned with a variable (first index) called success
         } else {
-            // Handle failure case
-            $this->render('employeeView', ['message' => 'Failed to create employee.']);
+            return ['success' => false, 'error' => 'Failed to create employee.'];
         }
     }
 
-    // Handle retrieving an employee by ID
+    public function getAllEmployees() {
+        $result = $this->employeeModel->getAll();
+        if ($result) {
+            return ['success' => true, 'employees' => $result];
+        } else {
+            return ['success' => false, 'error' => 'Failed to get employees.'];
+        }
+    }
+
     public function getEmployee($employee_id) {
         $employee = $this->employeeModel->getById($employee_id);
         if ($employee) {
-            // Pass the employee data to the view
-            $this->render('employeeView', ['employee' => $employee]);
+            return $employee;
         } else {
-            $this->render('employeeView', ['message' => 'Employee not found.']);
+            return false;
         }
     }
 
-    // Handle updating an employee's data
     public function updateEmployee(
-        $employee_id, $phone_nb, $gender, $email, $id_of_workplace, $dob, 
-        $job, $age, $company_id, $first_name, $last_name, $middle_name, 
-        $cnss_nb, $salary_currency, $salary_amount, $address_floor, 
-        $address_building, $address_street, $address_city, $address_country
+        $phone_nb, $gender, $email, $workplace_id, 
+        $job, $age, $company_id, $first_name, $last_name, 
+        $middle_name, $salary, $address
     ) {
         if ($this->employeeModel->update(
-            $employee_id, $phone_nb, $gender, $email, $id_of_workplace, 
-            $dob, $job, $age, $company_id, $first_name, $last_name, 
-            $middle_name, $cnss_nb, $salary_currency, $salary_amount, 
-            $address_floor, $address_building, $address_street, 
-            $address_city, $address_country
+            $phone_nb, $gender, $email, $workplace_id, 
+            $job, $age, $company_id, $first_name, $last_name, 
+            $middle_name, $salary, $address
         )) {
-            $this->render('employeeView', ['message' => 'Employee updated successfully!']);
+            return true;
         } else {
-            $this->render('employeeView', ['message' => 'Failed to update employee.']);
+            return false;
         }
-    }
-
-    // Utility method to render a view
-    private function render($view, $data = []) {
-        extract($data);  // Extracts the data array into variables
-        require "../views/{$view}.php";  // Loads the view file
     }
 }
