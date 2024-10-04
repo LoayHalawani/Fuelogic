@@ -17,37 +17,28 @@ class CompanyModel {
         try {
             $this->conn->beginTransaction();
     
-            $sql1 = "INSERT INTO company_a (
+            $sql1 = "INSERT INTO company (
                         ID, RegistrationNb, Nb_of_trucks, Nb_of_employees, Nb_of_branches,
                         TotalIncome, HeadquarterID, Name, Continent
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
             $company_id = $this->generateCompanyID();
-            $stmt1 = $this->conn->prepare($sql1);
+            $stmt = $this->conn->prepare($sql1);
             
-            $stmt1->bindValue(1, $company_id, PDO::PARAM_STR);
-            $stmt1->bindValue(2, $registration_nb, PDO::PARAM_STR);
-            $stmt1->bindValue(3, $nb_of_trucks, PDO::PARAM_STR);
-            $stmt1->bindValue(4, $nb_of_branches, PDO::PARAM_STR);
-            $stmt1->bindValue(5, $nb_of_employees, PDO::PARAM_STR);
-            $stmt1->bindValue(6, $total_income, PDO::PARAM_STR);
-            $stmt1->bindValue(7, $hq_id, PDO::PARAM_INT);
-            $stmt1->bindValue(8, $name, PDO::PARAM_INT);
-            $stmt1->bindValue(9, $continent, PDO::PARAM_INT);
+            $stmt->bindValue(1, $company_id, PDO::PARAM_STR);
+            $stmt->bindValue(2, $registration_nb, PDO::PARAM_STR);
+            $stmt->bindValue(3, $nb_of_trucks, PDO::PARAM_STR);
+            $stmt->bindValue(5, $nb_of_employees, PDO::PARAM_STR);
+            $stmt->bindValue(4, $nb_of_branches, PDO::PARAM_STR);
+            $stmt->bindValue(6, $total_income, PDO::PARAM_STR);
+            $stmt->bindValue(7, $hq_id, PDO::PARAM_INT);
+            $stmt->bindValue(8, $name, PDO::PARAM_INT);
+            $stmt->bindValue(9, $continent, PDO::PARAM_INT);
     
-            if (!$stmt1->execute()) {
-                throw new Exception("Failed to insert employee: " . implode(", ", $stmt1->errorInfo()));
-            }
-    
-            $sql2 = "INSERT INTO company_b (RegistrationNb, Name, Continent) VALUES (?, ?, ?)";
-            $stmt2 = $this->conn->prepare($sql2);
-    
-            $stmt2->bindValue(1, $registration_nb, PDO::PARAM_STR);
-            $stmt2->bindValue(2, $name, PDO::PARAM_STR);
-            $stmt2->bindValue(2, $continent, PDO::PARAM_STR);
-    
-            if (!$stmt2->execute()) {
-                throw new Exception("Failed to insert employee phone number: " . implode(", ", $stmt2->errorInfo()));
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                die("Execute failed: " . $stmt->error);
             }
     
             $this->conn->commit();
@@ -60,17 +51,17 @@ class CompanyModel {
     }
 
     public function getAll() {
-        $sql = "SELECT * FROM company_a";
+        $sql = "SELECT * FROM company";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findById($company_id) {
-        $sql = "SELECT * FROM company_a WHERE ID = ?";
+    public function getById($company_id) {
+        $sql = "SELECT * FROM company WHERE ID = :id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $company_id);
+        $stmt->bindParam(':id', $company_id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

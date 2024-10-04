@@ -19,6 +19,15 @@ class truckController {
         }
     }
 
+    public function getAllTrucks() {
+        $result = $this->truckModel->getAll();
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function getTruckByID($truck_id) {
         $truck = $this->truckModel->getById($truck_id);
         if ($truck) {

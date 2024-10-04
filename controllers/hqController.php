@@ -33,9 +33,9 @@ class HqController {
     public function getHqByID($hq_id) {
         $hq = $this->hqModel->getById($hq_id);
         if ($hq) {
-            $this->render('add-headquarter', ['hq' => $hq]);
+            return $hq;
         } else {
-            $this->render('add-headquarter', ['message' => 'HQ not found.']);
+            return false;
         }
     }
 

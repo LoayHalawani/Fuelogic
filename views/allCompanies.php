@@ -16,7 +16,7 @@ $results = $companyController->getAllCompanies();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All headquarters</title>
+    <title>All companies</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -34,15 +34,19 @@ $results = $companyController->getAllCompanies();
             </tr>
         </thead>
         <tbody>
-            <?php foreach($results as $hq): ?>
+            <?php foreach($results as $company): ?>
             <tr>
-                <td><?= htmlspecialchars($hq['ID']); ?></td> <!-- Simalar to forEach in react -->
-                <td><?= htmlspecialchars($hq['RegistrationNb']); ?></td>
-                <td><?= htmlspecialchars($hq['Nb_of_trucks']); ?></td>
-                <td><?= htmlspecialchars($hq['Nb_of_employees']); ?></td>
-                <td><?= htmlspecialchars($hq['Nb_of_branches']); ?></td>
-                <td><?= htmlspecialchars($hq['TotalIncome']); ?></td>
-                <td><?= htmlspecialchars($hq['HeadquarterID']); ?></td>
+                <td>
+                    <a href="/fuelogic/edit-company/<?= htmlspecialchars($company['ID']); ?>">
+                        <?= htmlspecialchars($company['ID']); ?>
+                    </a>
+                </td> <!-- Simalar to forEach in react -->
+                <td><?= htmlspecialchars($company['RegistrationNb']); ?></td>
+                <td><?= htmlspecialchars($company['Nb_of_trucks']); ?></td>
+                <td><?= htmlspecialchars($company['Nb_of_employees']); ?></td>
+                <td><?= htmlspecialchars($company['Nb_of_branches']); ?></td>
+                <td><?= htmlspecialchars($company['TotalIncome']); ?></td>
+                <td><?= htmlspecialchars($company['HeadquarterID']); ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>

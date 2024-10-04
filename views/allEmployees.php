@@ -40,7 +40,11 @@ $result = $employeeController->getAllEmployees();
         <tbody>
             <?php foreach($result['employees'] as $employee): ?>
             <tr>
-                <td><?= htmlspecialchars($employee['ID']); ?></td>
+                <td>
+                    <a href="/fuelogic/edit-employee/<?= htmlspecialchars($employee['ID']); ?>">
+                        <?= htmlspecialchars($employee['ID']); ?>
+                    </a>
+                </td>
                 <td><?= htmlspecialchars($employee['CompanyID']); ?></td>
                 <td><?= htmlspecialchars($employee['FirstName']); ?></td>
                 <td><?= htmlspecialchars($employee['LastName']); ?></td>

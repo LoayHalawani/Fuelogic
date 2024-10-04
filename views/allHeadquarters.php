@@ -25,7 +25,7 @@ $result = $hqController->getAllHeadquarters();
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Email</th>
                 <th>Nb of employees</th>
                 <th>Country</th>
                 <th>City</th>
@@ -36,7 +36,11 @@ $result = $hqController->getAllHeadquarters();
         <tbody>
             <?php foreach($result['headquarters'] as $hq): ?>
             <tr>
-                <td><?= htmlspecialchars($hq['ID']); ?></td> <!-- Simalar to forEach in react -->
+                <td>
+                    <a href="/fuelogic/edit-headquarter/<?= htmlspecialchars($hq['ID']); ?>">
+                        <?= htmlspecialchars($hq['ID']); ?>
+                    </a>
+                </td> <!-- Simalar to forEach in react -->
                 <td><?= htmlspecialchars($hq['Email']); ?></td>
                 <td><?= htmlspecialchars($hq['Nb_of_employees']); ?></td>
                 <td><?= htmlspecialchars($hq['Country']); ?></td>

@@ -1,31 +1,26 @@
 <?php
-class ConsumerModel {
+class RelativeModel {
     private $conn;
     
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    private function generateConsumerID() {
-        return substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 8)), 0, 8);
-    }
-
     public function create(
-        $name, $type, $company_id, $phone_nb, $country, $city, $street, $building
+        $employee_id, $name, $age, $relationship, $phone_nb, $country, $city, $street, $building
     ) {
         try {
-            $sql = "INSERT INTO consumer (
-                        ID, Name, Type, CompanyID, PhoneNb, Country, 
-                        City, Street, Building
+    
+            $sql = "INSERT INTO relative (
+                        EmployeeID, Name, Age, Relationship, PhoneNb, Country, City, Street, Building
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-            $id = $this->generateConsumerID();
             $stmt = $this->conn->prepare($sql);
             
-            $stmt->bindValue(1, $id, PDO::PARAM_STR);
+            $stmt->bindValue(1, $employee_id, PDO::PARAM_STR);
             $stmt->bindValue(2, $name, PDO::PARAM_STR);
-            $stmt->bindValue(3, $type, PDO::PARAM_STR);
-            $stmt->bindValue(4, $company_id, PDO::PARAM_STR);
+            $stmt->bindValue(3, $age, PDO::PARAM_STR);
+            $stmt->bindValue(4, $relationship, PDO::PARAM_STR);
             $stmt->bindValue(5, $phone_nb, PDO::PARAM_STR);
             $stmt->bindValue(6, $country, PDO::PARAM_STR);
             $stmt->bindValue(7, $city, PDO::PARAM_STR);
@@ -37,21 +32,23 @@ class ConsumerModel {
             } else {
                 die("Execute failed: " . $stmt->error);
             }
-
+    
+            return true;
         } catch (Exception $e) {
-            die("Failed to insert: " . $e->getMessage());
+            $this->conn->rollBack();
+            die("Transaction failed: " . $e->getMessage());
         }
     }
 
     public function getAll() {
-        $sql = "SELECT * FROM consumer";
+        $sql = "SELECT * FROM relative";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function findById($id) {
-        $sql = "SELECT * FROM consumer WHERE ID = ?";
+        $sql = "SELECT * FROM relative WHERE ID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();

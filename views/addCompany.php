@@ -21,27 +21,20 @@ $result = $hqController->getAllHeadquarters();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <form action="add-company" method="POST">
-        
-        
-        
-        <label for="cars">HQ id:</label>
-        <select name="hq_id" id="hq">
-            <?php foreach($result['headquarters'] as $hq): ?>
-            <option value=<?= htmlspecialchars($hq['ID']); ?>><?= htmlspecialchars($hq['ID']); ?></option>
-            <?php endforeach; ?>
-        </select>
-        
-        
-        <button type="submit">Add Company</button>
-    </form>
-
     <div class="d-flex justify-content-center vh-50 mt-5" id="">
         <div class="col-sm-8 col-md-6 border border-dark rounded p-4">
-            <form>
+            <form action="add-company" method="POST">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="text" name="registration_nb" class="form-control" placeholder="Registration number" required>
+                    <label for="exampleInputEmail1" class="form-label">Hq ID</label>
+                    <select name="hq_id" id="hq">
+                    <?php foreach($result['headquarters'] as $hq): ?>
+                        <option value=<?= htmlspecialchars($hq['ID']); ?>><?= htmlspecialchars($hq['ID']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Registration nb</label>
+                    <input type="text" name="registration_nb" class="form-control" placeholder="Registration nb" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="exampleCheck1">Number of trucks</label>

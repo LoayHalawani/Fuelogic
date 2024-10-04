@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add consumer</title>
+    <title>Add contract</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -46,38 +46,30 @@
 
     <div class="d-flex justify-content-center vh-50 mt-5" id="">
         <div class="col-sm-8 col-md-6 border border-dark rounded p-4">
-            <form action="add-consumer" method="POST">
+            <form>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Name</label>
-                    <input type="text" class="form-control" name="name">
+                    <label class="form-label" for="exampleCheck1">Fuel type</label>
+                    <input type="text" class="form-control" name="fuel_type">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Type</label>
-                    <input type="text" class="form-control" name="type" required>
+                    <label for="exampleInputPassword1" class="form-label">Fuel amount</label>
+                    <input type="password" class="form-control" name="fuel_amount" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Company ID</label>
-                    <input type="text" class="form-control" name="company_id" required>
+                    <label class="form-label" for="exampleCheck1">Reception date</label>
+                    <input type="text" name="reception_date" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Phone number</label>
-                    <input type="text" name="phone_nb" class="form-control" required>
+                    <label class="form-label" for="exampleCheck1">Signature date</label>
+                    <input type="text" name="signature_date" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Country</label>
-                    <input type="text" name="country" class="form-control" required>
+                    <label class="form-label" for="exampleCheck1">Price</label>
+                    <input type="text" name="price" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">City</label>
-                    <input type="text" name="city" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Street</label>
-                    <input type="text" name="street" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="exampleCheck1">Building</label>
-                    <input type="text" name="building" class="form-control" required>
+                    <label class="form-label" for="exampleCheck1">Currency</label>
+                    <input type="text" name="currency" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-dark">Submit</button>
             </form>
@@ -89,31 +81,28 @@
 
 <?php
 require_once 'config/database.php'; 
-require_once 'models/consumer.php';
-require_once 'controllers/consumerController.php';
+require_once 'models/contract.php';
+require_once 'controllers/contractController.php';
 
 $db = new Database();
 $connection = $db->getConnection();
 
-$consumerController = new ConsumerController($connection);
+$contractController = new ContractController($connection);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $name = $_POST['name'];
-    $type = $_POST['type'];
-    $company_id = $_POST['company_id'];
-    $phone_nb = $_POST['phone_nb'];
-    $country = $_POST['country'];
-    $city = $_POST['city'];
-    $street = $_POST['street'];
-    $building = $_POST['building'];
+    $fuel_type = $_POST['fuel_type'];
+    $fuel_amount = $_POST['fuel_amount'];
+    $reception_date = $_POST['reception_date'];
+    $signature_date = $_POST['signature_date'];
+    $currency = $_POST['currency'];
 
-    $result = $consumerController->createConsumer(
-        $name, $type, $company_id, $phone_nb, $country, $city, $street, $building
+    $result = $contractController->createContract(
+        $fuel_type, $fuel_amount, $reception_date, $signature_date, $price, $currency
     );
 
     if($result) {
-        echo "Consumer has been added";
+        echo "Contract has been added";
     } else {
-        echo "Error adding consumer";
+        echo "Error adding contract";
     }
 }

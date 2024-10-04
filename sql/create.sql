@@ -11,7 +11,7 @@ CREATE TABLE HQ (
 	PRIMARY KEY (ID)
 );
 
-CREATE TABLE Company_A (
+CREATE TABLE Company (
 	ID CHAR(5),
 	RegistrationNb INT,
 	Nb_of_trucks INT,
@@ -19,16 +19,10 @@ CREATE TABLE Company_A (
 	Nb_of_branches INT,
 	TotalIncome INT,
 	HeadquarterID CHAR(5),
+	Continent VARCHAR(255),
+	Name VARCHAR(255),
 	PRIMARY KEY (ID),
 	FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID),
-	FOREIGN KEY (RegistrationNb) REFERENCES Company_B(RegistrationNb)
-);
-
-CREATE TABLE Company_B (
-	RegistrationNb INT,
-	Name VARCHAR(255),
-	Continent VARCHAR(255),
-	PRIMARY KEY (RegistrationNb)
 );
 
 CREATE TABLE Branch (
@@ -101,7 +95,8 @@ CREATE TABLE Consumer (
 	City VARCHAR(255),
 	Street VARCHAR(255),
 	Building VARCHAR(255),
-	PRIMARY KEY (ID)
+	PRIMARY KEY (ID),
+	FOREIGN KEY (CompanyID) REFERENCES Company(ID)
 );
 
 CREATE TABLE Contract (
@@ -143,7 +138,7 @@ CREATE TABLE Employee (
 	WorkplaceID CHAR(5),
 	Address VARCHAR(255),
 	PRIMARY KEY (ID),
-	FOREIGN KEY (CompanyID) REFERENCES Company_A(ID)
+	FOREIGN KEY (CompanyID) REFERENCES Company(ID)
 );
 
 CREATE TABLE Relative (

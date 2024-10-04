@@ -33,7 +33,7 @@ class CompanyController {
     public function getCompanyByID($company_id) {
         $company = $this->companyModel->getById($company_id);
         if ($company) {
-            return true;
+            return $company;
         } else {
             return false;
         }

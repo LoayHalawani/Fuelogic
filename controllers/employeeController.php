@@ -33,7 +33,7 @@ class EmployeeController {
         }
     }
 
-    public function getEmployee($employee_id) {
+    public function getEmployeeById($employee_id) {
         $employee = $this->employeeModel->getById($employee_id);
         if ($employee) {
             return $employee;

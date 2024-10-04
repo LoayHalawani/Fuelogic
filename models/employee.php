@@ -5,30 +5,26 @@ class EmployeeModel {
     public function __construct($db) {
         $this->conn = $db;
     }
-
-    // Function to generate a unique 8-character ID
+    
     private function generateEmployeeID() {
         return substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 8)), 0, 8);
     }
 
-    // (insert)
     public function create(
         $phone_nb, $gender, $email, $workplace_id, 
         $job, $age, $company_id, $first_name, $last_name, 
         $middle_name, $salary, $address
     ) {
         try {
-            // Begin a transaction
             $this->conn->beginTransaction();
-    
-            // First, insert into the employee table
+
             $sql1 = "INSERT INTO employee (
                         ID, Gender, Email, WorkplaceID, Job, Age, 
                         CompanyID, FirstName, LastName, MiddleName, 
                         Salary, Address
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-            $employee_id = $this->generateEmployeeID();  // Generate an 8-character ID
+            $employee_id = $this->generateEmployeeID();
             $stmt1 = $this->conn->prepare($sql1);
             
             $stmt1->bindValue(1, $employee_id, PDO::PARAM_STR);
@@ -48,23 +44,20 @@ class EmployeeModel {
                 throw new Exception("Failed to insert employee: " . implode(", ", $stmt1->errorInfo()));
             }
     
-            // Second, insert into the employee_phone_nb table
             $sql2 = "INSERT INTO employee_phone_nb (EmployeeID, PhoneNb) VALUES (?, ?)";
             $stmt2 = $this->conn->prepare($sql2);
     
-            $stmt2->bindValue(1, $employee_id, PDO::PARAM_STR);  // Use the generated employee_id
+            $stmt2->bindValue(1, $employee_id, PDO::PARAM_STR);
             $stmt2->bindValue(2, $phone_nb, PDO::PARAM_STR);
     
             if (!$stmt2->execute()) {
                 throw new Exception("Failed to insert employee phone number: " . implode(", ", $stmt2->errorInfo()));
             }
     
-            // Commit the transaction if both insertions were successful
             $this->conn->commit();
     
-            return true;  // Success
+            return true;
         } catch (Exception $e) {
-            // Rollback the transaction in case of an error
             $this->conn->rollBack();
             die("Transaction failed: " . $e->getMessage());
         }
@@ -77,16 +70,24 @@ class EmployeeModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findById($employee_id) {
-        $sql = "SELECT * FROM employees WHERE employee_id = ?";
+    public function getById($employee_id) {
+        $sql = "SELECT * FROM employee WHERE ID = :id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $employee_id);
+        $stmt->bindParam(":id", $employee_id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getEmployeeByName($name) {
+        $sql = "SELECT ID FROM employee WHERE first_name = :name OR last_name = :name";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }    
+
     public function getByEmail($email) {
-        $sql = "SELECT * FROM employees WHERE email = ?";
+        $sql = "SELECT * FROM employee WHERE email = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -94,21 +95,19 @@ class EmployeeModel {
     }
 
     public function delete($employee_id) {
-        $sql = "DELETE FROM employees WHERE employee_id = ?";
+        $sql = "DELETE FROM employee WHERE employee_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $employee_id);
         return $stmt->execute();
     }
 
     public function update(
-        $employee_id, $phone_nb, $gender, $email, $id_of_workplace, $dob, 
+        $phone_nb, $gender, $email, $workplace_id, 
         $job, $age, $company_id, $first_name, $last_name, 
-        $middle_name, $cnss_nb, $salary_currency, $salary_amount,
-        $address_floor, $address_building, $address_street, $address_city,
-        $address_country
+        $middle_name, $salary, $address
     ) {
         // SQL query to update employee data
-        $sql = "UPDATE employees 
+        $sql = "UPDATE employee 
                 SET phone_nb = ?, gender = ?, email = ?, id_of_workplace = ?, 
                     dob = ?, job = ?, age = ?, company_id = ?, first_name = ?, 
                     last_name = ?, middle_name = ?, cnss_nb = ?, 
@@ -127,11 +126,9 @@ class EmployeeModel {
         // Bind parameters to the prepared statement
         $stmt->bind_param(
             "ssssssiiisssdsisssi", // Adjust types as per your database schema
-            $phone_nb, $gender, $email, $id_of_workplace, $dob, 
+            $phone_nb, $gender, $email, $workplace_id, 
             $job, $age, $company_id, $first_name, $last_name, 
-            $middle_name, $cnss_nb, $salary_currency, $salary_amount,
-            $address_floor, $address_building, $address_street, $address_city,
-            $address_country, $employee_id
+            $middle_name, $salary, $address
         );
     
         // Execute the statement

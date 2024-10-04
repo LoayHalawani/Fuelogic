@@ -35,6 +35,13 @@ class TruckModel {
         }
     }
 
+    public function getAll() {
+        $sql = "SELECT * FROM truck";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function findById($company_id) {
         $sql = "SELECT * FROM company WHERE company_id = ?";
         $stmt = $this->conn->prepare($sql);
