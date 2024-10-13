@@ -11,13 +11,13 @@ class BranchModel {
     }
 
     public function create(
-        $hq_id, $country, $city, $street, $building,
+        $company_id, $country, $city, $street, $building,
         $nb_of_employees, $nb_of_trucks, $nb_of_storages, $status, $refuels
     ) {
         try {
     
             $sql = "INSERT INTO branch (
-                        ID, HeadquarterID, Country, City, Street, Building, Nb_of_employees, 
+                        ID, CompanyID, Country, City, Street, Building, Nb_of_employees, 
                         Nb_of_trucks, Nb_of_storages, Status, Refuels
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
@@ -25,7 +25,7 @@ class BranchModel {
             $stmt = $this->conn->prepare($sql);
             
             $stmt->bindValue(1, $id, PDO::PARAM_STR);
-            $stmt->bindValue(2, $hq_id, PDO::PARAM_STR);
+            $stmt->bindValue(2, $company_id, PDO::PARAM_STR);
             $stmt->bindValue(3, $country, PDO::PARAM_STR);
             $stmt->bindValue(4, $city, PDO::PARAM_STR);
             $stmt->bindValue(5, $street, PDO::PARAM_STR);
@@ -44,8 +44,7 @@ class BranchModel {
     
             return true;
         } catch (Exception $e) {
-            $this->conn->rollBack();
-            die("Transaction failed: " . $e->getMessage());
+            die("Failed to insert: " . $e->getMessage());
         }
     }
 
@@ -56,11 +55,11 @@ class BranchModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findById($id) {
-        $sql = "SELECT * FROM branch WHERE ID = ?";
+    public function getById($id) {
+        $sql = "SELECT * FROM branch WHERE ID = :id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

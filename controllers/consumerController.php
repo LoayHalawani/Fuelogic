@@ -48,4 +48,13 @@ class ConsumerController {
             return false;
         }
     }
+
+    public function deleteConsumerByID($consumer_id) {
+        $consumer = $this->consumerModel->deleteById($consumer_id);
+        if ($consumer) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -17,48 +17,14 @@ $company = $companyController->getCompanyByID($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update company</title>
+    <link href="../css/layout.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">NAHL Company</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            </div>
-        </div>
-    </nav>
+    <?php require 'navbar.php'; ?>
     <?php if ($company) { ?>
     <div class="d-flex justify-content-center vh-50 mt-5">
-        <div class="col-sm-8 col-md-6 border border-dark rounded p-4">
+        <div class="form-div col-sm-8 col-md-6 border border-dark rounded p-4">
             <form action="edit-company/<?php $id?>" method="POST">
                 <div class="mb-3">
                     <label class="form-label" for="exampleCheck1">ID</label>
@@ -111,17 +77,18 @@ $company = $companyController->getCompanyByID($id);
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $company_id = $_POST['company_id'];
-    $consumer_id = $_POST['consumer_id'];
-    $fuel_type = $_POST['fuel_type'];
-    $fuel_amount = $_POST['fuel_amount'];
-    $payment_date = $_POST['payment_date'];
-    $payment_method = $_POST['payment_method'];
-    $currency = $_POST['currency'];
-    $price = $_POST['price'];
+    $registration_nb = $_POST['registration_nb'];
+    $nb_of_trucks = $_POST['nb_of_trucks'];
+    $nb_of_branches = $_POST['nb_of_branches'];
+    $nb_of_employees= $_POST['nb_of_employees'];
+    $total_income= $_POST['total_income'];
+    $hq_id = $_POST['hq_id'];
+    $name= $_POST['name'];
+    $continent= $_POST['continent'];
 
     $result = $companyController->updatecompany(
-        $company_id, $consumer_id, $fuel_type, $fuel_amount, $payment_date, $payment_method, $currency, $price
+        $registration_nb, $nb_of_trucks, $nb_of_branches, $nb_of_employees,
+        $total_income, $hq_id, $name, $continent
     );
 
     if($result) {

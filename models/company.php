@@ -64,4 +64,65 @@ class CompanyModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function deleteById($id) {
+        try {
+            // Check if the company exists
+            $sql = "SELECT * FROM company WHERE ID = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $company = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$company) {
+                echo "Company with ID $id not found.";
+                return false;
+            }
+    
+            // Proceed with deletion if the company exists
+            $sql = "DELETE FROM company WHERE ID = :id"; 
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Error deleting record: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getBranches($company_id) {
+        $sql = "SELECT * FROM branch WHERE CompanyID = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $company_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTrucks($company_id) {
+        $sql = "SELECT * FROM truck WHERE CompanyID = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $company_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getConsumers($company_id) {
+        $sql = "SELECT * FROM consumer WHERE CompanyID = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $company_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getEmployees($company_id) {
+        $sql = "SELECT * FROM employee WHERE CompanyID = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $company_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

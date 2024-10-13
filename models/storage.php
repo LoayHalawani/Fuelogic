@@ -49,11 +49,11 @@ class StorageModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findById($id) {
-        $sql = "SELECT * FROM storage WHERE ID = ?";
+    public function getById($id) {
+        $sql = "SELECT * FROM storage WHERE ID = :id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

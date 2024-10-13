@@ -26,8 +26,8 @@ CREATE TABLE Company (
 );
 
 CREATE TABLE Branch (
-    ID CHAR(6),	
-	HeadquarterID CHAR(5),
+    ID CHAR(6),
+	CompanyID CHAR(5),
 	Country VARCHAR(255),
 	City VARCHAR(255),
 	Street VARCHAR(255),
@@ -35,10 +35,10 @@ CREATE TABLE Branch (
 	Nb_of_employees INT,
 	Nb_of_trucks INT,
 	Nb_of_storages INT,
-	Status CHAR NOT NULL CHECK (STATUS IN ('M', 'S')),
-	Refuels CHAR NOT NULL CHECK (REFUELS IN ('Y', 'N')),
+	Status CHAR NOT NULL CHECK (Status IN ('M', 'S')),
+	Refuels CHAR NOT NULL CHECK (Refuels IN ('Y', 'N')),
 	PRIMARY KEY (ID),
-    FOREIGN KEY (HeadquarterID) REFERENCES HQ(ID)
+    FOREIGN KEY (CompanyID) REFERENCES Company(ID)
 );
 
 CREATE TABLE Supplier ( 
@@ -80,7 +80,7 @@ CREATE TABLE Truck (
 	FuelType VARCHAR(255),
 	Capacity INT,
 	PRIMARY KEY (PlateNb),
-	FOREIGN KEY (CompanyID) REFERENCES Company_A(ID),
+	FOREIGN KEY (CompanyID) REFERENCES Company(ID),
 	FOREIGN KEY (BranchID) REFERENCES Branch(ID),
 	FOREIGN KEY (FuelType) REFERENCES Fuel(Type) 
 );

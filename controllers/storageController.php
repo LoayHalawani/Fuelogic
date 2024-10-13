@@ -31,7 +31,7 @@ class StorageController {
     public function getStorageByID($storage_id) {
         $storage = $this->storageModel->getById($storage_id);
         if ($storage) {
-            return true;
+            return $storage;
         } else {
             return false;
         }

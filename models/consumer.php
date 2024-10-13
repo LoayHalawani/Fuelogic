@@ -57,4 +57,20 @@ class ConsumerModel {
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+
+    public function deleteById($id) {
+        try {
+            $sql = "DELETE FROM consumer WHERE ID = :id"; 
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            error_log("Error deleting record: " . $e->getMessage());
+            return false;
+        }
+    }
 }

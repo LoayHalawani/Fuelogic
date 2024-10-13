@@ -1,37 +1,15 @@
-<?php
-require_once 'config/database.php';
-require_once 'models/headquarter.php';
-require_once 'controllers/hqController.php';
-
-$db = new Database();
-$connection = $db->getConnection();
-
-$hqController = new HqController($connection);
-
-$result = $hqController->getAllHeadquarters();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add company</title>
-    <link href="css/addHeadquarter.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
+    <?php require 'navbar.php'; ?>
     <div class="d-flex justify-content-center vh-50 mt-5" id="">
-        <div class="col-sm-8 col-md-6 border border-dark rounded p-4">
-            <form action="add-company" method="POST">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Hq ID</label>
-                    <select name="hq_id" id="hq">
-                    <?php foreach($result['headquarters'] as $hq): ?>
-                        <option value=<?= htmlspecialchars($hq['ID']); ?>><?= htmlspecialchars($hq['ID']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+        <div class="form-div col-sm-8 col-md-6 border border-dark rounded p-4">
+            <form action="<?= htmlspecialchars($hq_id); ?>" method="POST">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Registration nb</label>
                     <input type="text" name="registration_nb" class="form-control" placeholder="Registration nb" required>
@@ -68,6 +46,7 @@ $result = $hqController->getAllHeadquarters();
 </html>
 
 <?php
+require_once 'config/database.php'; 
 require_once 'models/company.php';
 require_once 'controllers/companyController.php';
 
@@ -75,7 +54,6 @@ $db = new Database();
 $connection = $db->getConnection();
 
 $companyController = new CompanyController($connection);
-$hqController = new HqController($connection);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $registration_nb = $_POST['registration_nb'];
@@ -83,7 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nb_of_branches = $_POST['nb_of_branches'];
     $nb_of_employees= $_POST['nb_of_employees'];
     $total_income= $_POST['total_income'];
-    $hq_id = $_POST['hq_id'];
     $name= $_POST['name'];
     $continent= $_POST['continent'];
 

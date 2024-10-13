@@ -4,15 +4,15 @@ class BranchController {
     private $branchModel;
 
     public function __construct($db) {
-        $this->branchModel = new branchModel($db);
+        $this->branchModel = new BranchModel($db);
     }
 
     public function createBranch(
-        $hq_id, $country, $city, $street, $building,
+        $company_id, $country, $city, $street, $building,
         $nb_of_employees, $nb_of_trucks, $nb_of_storages, $status, $refuels
     ) {
         if ($this->branchModel->create(
-            $hq_id, $country, $city, $street, $building,
+            $company_id, $country, $city, $street, $building,
             $nb_of_employees, $nb_of_trucks, $nb_of_storages, $status, $refuels
         )) {
             return true;
@@ -33,18 +33,18 @@ class BranchController {
     public function getBranchByID($branch_id) {
         $branch = $this->branchModel->getById($branch_id);
         if ($branch) {
-            return true;
+            return $branch;
         } else {
             return false;
         }
     }
 
     public function updateBranch(
-        $hq_id, $country, $city, $street, $building,
+        $company_id, $country, $city, $street, $building,
         $nb_of_employees, $nb_of_trucks, $nb_of_storages, $status, $refuels
     ) {
         if ($this->branchModel->update(
-            $hq_id, $country, $city, $street, $building,
+            $company_id, $country, $city, $street, $building,
             $nb_of_employees, $nb_of_trucks, $nb_of_storages, $status, $refuels
         )) {
             return true;

@@ -39,17 +39,35 @@ class HqController {
         }
     }
 
-    public function updateHq(
-        $email, $nb_of_employees, $country, $city,
+    public function updateHq (
+        $id, $email, $nb_of_employees, $country, $city,
         $street, $building
     ) {
         if ($this->hqModel->update(
-            $email, $nb_of_employees, $country, $city,
+            $id, $email, $nb_of_employees, $country, $city,
             $street, $building
         )) {
-            $this->render('hqView', ['message' => 'HQ updated successfully!']);
+            return true;
         } else {
-            $this->render('hqView', ['message' => 'Failed to update HQ.']);
+            return false;
+        }
+    }
+
+    public function deleteHqByID($hq_id) {
+        $result = $this->hqModel->deleteByID($hq_id);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getCompaniesOfHQ($hq_id) {
+        $result = $this->hqModel->getCompanies($hq_id);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
         }
     }
 }

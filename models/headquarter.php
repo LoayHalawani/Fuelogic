@@ -64,10 +64,64 @@ class HqModel {
     }
 
     public function update(
-        $email, $nb_of_employees, $country, $city,
+        $id, $email, $nb_of_employees, $country, $city,
         $street, $building
     ) {
+        $sql = "UPDATE hq 
+                SET Email = :email, Nb_of_employees = :nb_of_employees, 
+                    Country = :country, City = :city, 
+                    Street = :street, Building = :building 
+                WHERE ID = :id";
+        
+        $stmt = $this->conn->prepare($sql);
+        
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':nb_of_employees', $nb_of_employees, PDO::PARAM_INT);
+        $stmt->bindParam(':country', $country, PDO::PARAM_STR);
+        $stmt->bindParam(':city', $city, PDO::PARAM_STR);
+        $stmt->bindParam(':street', $street, PDO::PARAM_STR);
+        $stmt->bindParam(':building', $building, PDO::PARAM_STR);
+        
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
 
+    public function deleteByID($hq_id) {
+        try {
+            $sql = "SELECT * FROM hq WHERE ID = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $hq_id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $hq = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$hq) {
+                echo "HQ with ID $hq_id not found.";
+                return false;
+            }
+
+            $sql = "DELETE FROM hq WHERE ID = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $hq_id, PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Error deleting record: " . $e->getMessage();
+            return false;
+        }
     }
 
+    public function getCompanies($hq_id) {
+        $sql = "SELECT * FROM company WHERE HeadquarterID = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $hq_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

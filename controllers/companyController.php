@@ -52,4 +52,49 @@ class CompanyController {
             return false;
         }
     }
+
+    public function deleteCompanyByID($company_id) {
+        $result = $this->companyModel->deleteById($company_id);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getBranchesOfCompany($company_id) {
+        $result = $this->companyModel->getBranches($company_id);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function getTrucksOfCompany($company_id) {
+        $result = $this->companyModel->getTrucks($company_id);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function getConsumersOfCompany($company_id) {
+        $result = $this->companyModel->getConsumers($company_id);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function getEmployeesOfCompany($company_id) {
+        $result = $this->companyModel->getEmployees($company_id);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
 }

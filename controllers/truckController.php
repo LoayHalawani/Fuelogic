@@ -31,7 +31,7 @@ class truckController {
     public function getTruckByID($truck_id) {
         $truck = $this->truckModel->getById($truck_id);
         if ($truck) {
-            return true;
+            return $truck;
         } else {
             return false;
         }

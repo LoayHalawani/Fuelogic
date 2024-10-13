@@ -42,11 +42,11 @@ class TruckModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findById($company_id) {
-        $sql = "SELECT * FROM company WHERE company_id = ?";
+    public function getById($id) {
+        $sql = "SELECT * FROM company WHERE truck = :id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $company_id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

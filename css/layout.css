@@ -1,0 +1,22 @@
+body {
+    height: 100%; /* Ensure the body and HTML take up the full height */
+    margin: 0;
+    background-image: url("../assets/background.jpg");
+    background-size: cover;  /* Ensures the image covers the entire body */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat;  /* Prevents the image from repeating */
+    background-attachment: fixed;  /* Keeps the image fixed in place even if the page is scrolled */
+}
+
+.form-div {
+    background-color: white;
+}
+
+.allrows-div {
+    width: 70%;
+    display: flex;
+    justify-content: flex-start; /* Aligns horizontally to the start (left) */
+    align-items: center; /* Vertically centers the content within the container */
+    margin: 0 auto; /* Optional: if you want it horizontally centered in its 50% width */
+    margin-top: 5%;
+}
