@@ -1,5 +1,6 @@
 # Description
-A Database Management System (DBMS) for a fuel distribution company.
+
+A database management system (DBMS) for a fuel distribution company.
 
 # Technologies
 
